@@ -228,9 +228,10 @@ public class UpdateProcessing {
         v = v.replace("%area%", Integer.toString(claim.getArea()));
         ArrayList<String> builders = new ArrayList<>();
         ArrayList<String> containers = new ArrayList<>();
+        ArrayList<String> creatures = new ArrayList<>();
         ArrayList<String> accessors = new ArrayList<>();
         ArrayList<String> managers = new ArrayList<>();
-        claim.getPermissions(builders, containers, accessors, managers);
+        claim.getPermissions(builders, containers, creatures, accessors, managers);
         /* Build builders list */
         final StringBuilder accum = new StringBuilder();
         for(int i = 0; i < builders.size(); i++) {
@@ -260,6 +261,15 @@ public class UpdateProcessing {
             accum.append(resolveClaimName(accessors.get(i)));
         }
         v = v.replace("%accessors%", accum.toString());
+        /* Build creature list */
+        accum.setLength(0);
+        for(int i = 0; i < creatures.size(); i++) {
+            if(i > 0) {
+                accum.append(", ");
+            }
+            accum.append(resolveClaimName(creatures.get(i)));
+        }
+        v = v.replace("%creatures%", accum.toString());
         /* Build managers list */
         accum.setLength(0);
         for(int i = 0; i < managers.size(); i++) {
